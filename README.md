@@ -3,10 +3,10 @@
 A grid / turn based rpg. 
 
 # CONTROLS
-W : Move character upwards
-A : Move character left
-S : Move character downwards
-D : Move character right
+W : Move character upwards  
+A : Move character left  
+S : Move character downwards  
+D : Move character right  
 
 1,2,3,4,5,6,7,8,9,0,-,=  : are used to select picked up spells from spell bar.
 
