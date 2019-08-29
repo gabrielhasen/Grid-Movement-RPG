@@ -1,5 +1,5 @@
 # Grid-Movement-RPG
-(WORK IN PROGRESS)  Personal project.
+(WORK IN PROGRESS)  Personal project.  
 A grid / turn based rpg. 
 
 # CONTROLS
