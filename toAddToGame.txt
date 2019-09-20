@@ -1,0 +1,12 @@
+IMPORTANT
+=================================================================================
+Enemies don't overlap
+Room doors close behind you, until you've killed all enemies in the room.
+
+Add at some point
+=================================================================================
+Bosses
+More traps
+Pitfall tiles
+Enemies/projectiles that push you/enemies back
+
