@@ -1,6 +1,5 @@
 IMPORTANT
 =================================================================================
-Enemies don't overlap
 Room doors close behind you, until you've killed all enemies in the room.
 
 Add at some point
