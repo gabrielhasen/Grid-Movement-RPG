@@ -23,6 +23,7 @@ public class Enemy_Movement : MonoBehaviour {
 
     //combat variables
     public bool alreadyAction = false;
+    public bool innactive = true;
     public int range;
     public int damage = 0;
     public GameObject attackObject;
@@ -64,6 +65,10 @@ public class Enemy_Movement : MonoBehaviour {
 
 	private void Move()
 	{
+        if(innactive == true)
+        {
+            return;
+        }
         //resets action.  So only one action per movement
         alreadyAction = false;
 
@@ -81,8 +86,12 @@ public class Enemy_Movement : MonoBehaviour {
 		bool isWallCell = getCell(wallTilemap, moveTo);
         if (isGroundCell && !isWallCell && moveTo != playerCell)
         {
-            previousCell = currentCell;
-            StartCoroutine(SmoothMovement(moveTo));
+            bool checkOtherEnemies = gameManager.checkMoveEnemies(moveTo);
+            if(checkOtherEnemies){
+                previousCell = currentCell;
+                StartCoroutine(SmoothMovement(moveTo));
+            }
+            //else it stays at current position
         }
         if(moveTo == playerCell && alreadyAction == false) StartCoroutine(waitingForAttack());
     }
@@ -252,6 +261,7 @@ public class Enemy_Movement : MonoBehaviour {
             combatRange();
         }
     }
+    
     private void OnTriggerEnter2D(Collider2D coll)
     {
         if (coll.tag == "Projectile_Player")

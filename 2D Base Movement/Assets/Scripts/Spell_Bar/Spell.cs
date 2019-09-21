@@ -9,6 +9,8 @@ public class Spell : ScriptableObject
 	public int damage = 0;
 	public int armor = 0;
 	public int range = 0;
+	public int spellType = 0;
+	public int manaCost = 0;
 	Player_Movement playerMove;
 	//public int cost = 0;
 

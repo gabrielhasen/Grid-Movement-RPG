@@ -26,6 +26,7 @@ public class Player_Information : MonoBehaviour {
 	public int health;
 	public int armor;
 	public int damage;
+	public int mana;
 
 
 	void Start () 
@@ -34,6 +35,7 @@ public class Player_Information : MonoBehaviour {
 		health = 5;
 		armor = 0;
 		damage = 1;
+		mana = 3;
 		updateVisuals();
 	}
 	
@@ -72,6 +74,12 @@ public class Player_Information : MonoBehaviour {
     public void updateDamage(int dam)
     {
         damage = damage + dam;
+        updateVisuals();
+    }
+
+    public void updateMana(int man)
+    {
+        mana = mana + man;
         updateVisuals();
     }
 }

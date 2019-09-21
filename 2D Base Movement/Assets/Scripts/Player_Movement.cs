@@ -12,7 +12,7 @@ public class Player_Movement : MonoBehaviour {
 	{
 		if(instance != null)
 		{
-			Debug.LogWarning("More than 1 instance of AllCards");
+			Debug.LogWarning("More than 1 instance of Player_Movement");
 			return;
 		}
 		instance = this;
@@ -26,6 +26,7 @@ public class Player_Movement : MonoBehaviour {
 	public GameObject[] enemyList;
 	public GameObject[] rangeList;
     public GameObject attackObject;
+    public Vector2 endSpellRange;
     public bool isAttacking = false;
     public float moveTime = 0.1f;
     public int attackHor = 0;
@@ -155,10 +156,20 @@ public class Player_Movement : MonoBehaviour {
         Vector2 currentCell = transform.position;
         Vector2 attackCell = new Vector2(currentCell.x + attackHor, currentCell.y + attackVert);
 
-        //instantiate current attackObject
-        GameObject temp;
-        temp = Instantiate(attackObject, currentCell, Quaternion.identity);
-        temp.GetComponent<Projectile>().setInfo(temp, currentSpell.range, currentCell, attackHor, attackVert, currentSpell.damage);
+        //Attack straight spell
+        if(currentSpell.spellType == 0)
+        {
+            GameObject temp;
+            temp = Instantiate(attackObject, currentCell, Quaternion.identity);
+            temp.GetComponent<Projectile>().setInfo(temp, currentSpell.range, currentCell, attackHor, attackVert, currentSpell.damage);
+        }
+        //Movement spell
+        else if(currentSpell.spellType == 1)
+        {
+            if(playerInfo.mana <= 0) return;
+            transform.position = endSpellRange;
+            playerInfo.updateMana(-1 * currentSpell.manaCost);
+        }
 
         //this turn change is here so the projectile can move once fired and not stack ontop of eachother.  As well as
         //allowing the enemy to move.
@@ -224,11 +235,45 @@ public class Player_Movement : MonoBehaviour {
 
         //display the range of the current spell
 		rangeList = new GameObject[currentSpell.range];
-		for(int i = 1; i < currentSpell.range + 1; i++)
-		{
-			if(getCell(wallTilemap,currentCell)) return;
-			rangeList[i-1] = Instantiate(Range, currentCell, Quaternion.identity);
-			currentCell = new Vector2(currentCell.x + horizontal, currentCell.y + vertical);
+
+        //Attack straight spell
+        if(currentSpell.spellType == 0)
+        {    
+            Debug.Log("Attack Spell");
+            for(int i = 1; i <= currentSpell.range; i++)
+            {
+                if(getCell(wallTilemap,currentCell)) return;
+                rangeList[i-1] = Instantiate(Range, currentCell, Quaternion.identity);
+                currentCell = new Vector2(currentCell.x + horizontal, currentCell.y + vertical);
+            }
+        }
+        //Movement spell
+        else if(currentSpell.spellType == 1)
+        {
+            Debug.Log("Movement Spell");
+            Vector2 previousCell = currentCell;
+            for(int i = 1; i <= currentSpell.range; i++)
+            {
+                if(getCell(wallTilemap,currentCell)) 
+                {
+                    if(previousCell != new Vector2(transform.position.x, transform.position.y))
+                    {
+                        rangeList[i-1] = Instantiate(Range, previousCell, Quaternion.identity);
+                        endSpellRange = previousCell;
+                        return;
+                    }
+                    return;
+                }
+                if(i == currentSpell.range)
+                {
+                    rangeList[i-1] = Instantiate(Range, currentCell, Quaternion.identity);
+                    endSpellRange = currentCell;
+                    return;
+                }
+                previousCell = currentCell;
+                currentCell = new Vector2(currentCell.x + horizontal, currentCell.y + vertical);
+            }
+            
         }
     }
 
@@ -248,7 +293,7 @@ public class Player_Movement : MonoBehaviour {
         {
             Debug.Log("Projectile");
             coll.gameObject.SetActive(false);
-            playerInfo.updateHealth(coll.GetComponent<Projectile>().damage);
+            playerInfo.updateHealth( -1 * coll.GetComponent<Projectile>().damage);
         }
     }
 

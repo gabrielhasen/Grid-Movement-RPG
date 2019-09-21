@@ -51,11 +51,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\DungeonGeneration.cs" />
      <Compile Include="Assets\Scripts\Enemy_Movement.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Player_Information.cs" />
      <Compile Include="Assets\Scripts\Player_Movement.cs" />
      <Compile Include="Assets\Scripts\Projectile.cs" />
+     <Compile Include="Assets\Scripts\Room.cs" />
+     <Compile Include="Assets\Scripts\RoomGenerator.cs" />
      <Compile Include="Assets\Scripts\Smooth_Camera.cs" />
      <Compile Include="Assets\Scripts\Spell_Bar\Interactable.cs" />
      <Compile Include="Assets\Scripts\Spell_Bar\Spell.cs" />
@@ -63,6 +66,8 @@
      <Compile Include="Assets\Scripts\Spell_Bar\Spell_Bar_Slot.cs" />
      <Compile Include="Assets\Scripts\Spell_Bar\Spell_Bar_UI.cs" />
      <Compile Include="Assets\Scripts\Spell_Bar\Spell_Pickup.cs" />
+     <Compile Include="Assets\Scripts\TileGeneration.cs" />
+     <Compile Include="Assets\Scripts\Turret.cs" />
  <Reference Include="UnityEngine.CoreModule">
  <HintPath>/home/odd/Unity/Hub/Editor/2017.4.21f1/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
  </Reference>

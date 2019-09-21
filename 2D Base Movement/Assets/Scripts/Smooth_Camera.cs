@@ -11,8 +11,10 @@ public class Smooth_Camera : MonoBehaviour
 	void FixedUpdate()
 	{
 		Vector3 desiredPosition = target.position + offset;
+		desiredPosition.z = -9;
 		Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
 		transform.position = smoothedPosition;
-		transform.LookAt(target);
+		//transform.LookAt(target);
+		//transform.rotation = Quaternion.Euler(0,0,0);
 	}
 }

@@ -9,6 +9,8 @@ TagManager:
   - Projectile
   - Projectile_Player
   - Spell
+  - SpawnPoint
+  - Room
   layers:
   - Default
   - TransparentFX

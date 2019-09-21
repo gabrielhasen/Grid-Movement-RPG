@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour {
 	public delegate void NextTurn();			//delegate is similar to a signal, as when
 	public NextTurn NextTurnCallBack;			//triggered methods listening for this delegate will be called
 	public float time;
+	public GameObject[] enemyList;
+	public List<Vector2> enemyMoves;
 
 	// Use this for initialization
 	void Start () 
@@ -47,6 +49,8 @@ public class GameManager : MonoBehaviour {
 	{
 		if (NextTurnCallBack != null)
 		{
+			enemyList = GameObject.FindGameObjectsWithTag("Enemy");
+			enemyMoves.Clear();
 			StartCoroutine(waiting());
 			isMoving = true;			//triggering delegate
 			NextTurnCallBack.Invoke();
@@ -67,5 +71,24 @@ public class GameManager : MonoBehaviour {
 		yield return new WaitForSeconds(time);
 		isMoving = false;
 		isAction = false;
+	}
+
+	public bool checkMoveEnemies(Vector2 targetCell)
+	{
+		bool alreadyMoving = false;
+		foreach (Vector2 moveCell in enemyMoves)
+		{
+			if(moveCell != null)
+			{
+				if(targetCell == moveCell)
+					alreadyMoving = true;
+			}
+		}
+		if(alreadyMoving == true)
+			return false;
+		else{
+			enemyMoves.Add(targetCell);
+			return true;
+		}
 	}
 }

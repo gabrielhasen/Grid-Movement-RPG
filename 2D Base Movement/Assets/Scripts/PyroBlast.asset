@@ -18,3 +18,4 @@ MonoBehaviour:
   damage: 5
   armor: 0
   range: 2
+  spellType: 0

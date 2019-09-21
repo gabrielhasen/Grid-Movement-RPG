@@ -18,3 +18,5 @@ MonoBehaviour:
   damage: 1
   armor: 0
   range: 10
+  spellType: 0
+  manaCost: 0
