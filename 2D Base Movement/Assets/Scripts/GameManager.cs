@@ -76,6 +76,14 @@ public class GameManager : MonoBehaviour {
 	public bool checkMoveEnemies(Vector2 targetCell)
 	{
 		bool alreadyMoving = false;
+		bool alreadyEnemy = false;
+		foreach (GameObject en in enemyList)
+		{
+			if(en != null){
+				if(targetCell == new Vector2(en.transform.position.x, en.transform.position.y))
+					alreadyEnemy = true;
+			}
+		}
 		foreach (Vector2 moveCell in enemyMoves)
 		{
 			if(moveCell != null)
@@ -84,7 +92,7 @@ public class GameManager : MonoBehaviour {
 					alreadyMoving = true;
 			}
 		}
-		if(alreadyMoving == true)
+		if(alreadyMoving || alreadyEnemy)
 			return false;
 		else{
 			enemyMoves.Add(targetCell);
